@@ -90,8 +90,9 @@ class Model(nn.Module):
         else:
             return self.forward_once(x, profile)  # single-scale inference, train
 
-    def forward_once(self, x, profile=False):
+    def forward_once(self, x, profile=False): 
         y, dt = [], []  # outputs
+        z = []
         for m in self.model:
             if m.f != -1:  # if not from previous layer
                 x = y[m.f] if isinstance(m.f, int) else [x if j == -1 else y[j] for j in m.f]  # from earlier layers
@@ -107,6 +108,10 @@ class Model(nn.Module):
 
             x = m(x)  # run
             y.append(x if m.i in self.save else None)  # save output
+            if m.i in [4, 6, 8, 10, 11, 24, 27]:
+                z.append(x)
+            
+        return z
 
         if profile:
             print('%.1fms total' % sum(dt))
