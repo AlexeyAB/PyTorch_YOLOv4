@@ -2,7 +2,7 @@
 
 Usage:
     import torch
-    model = torch.hub.load('AlexeyAB/PyTorch_YOLOv4:u5_mish_preview', 'yolov4_pacsp_mish_s', pretrained=True, channels=3, classes=80)
+    model = torch.hub.load('AlexeyAB/PyTorch_YOLOv4:u5_mish_preview', 'yolov4_pacsp_s_mish', pretrained=True, channels=3, classes=80)
 """
 
 dependencies = ['torch', 'yaml']
@@ -50,7 +50,7 @@ def create(name, pretrained, channels, classes):
         raise Exception(s) from e
 
 
-def yolov4_pacsp_mish_s(pretrained=False, channels=3, classes=80):
+def yolov4_pacsp_s_mish(pretrained=False, channels=3, classes=80):
     """YOLOv4-small model from https://github.com/AlexeyAB/PyTorch_YOLOv4/releases/tag/models_24_07_2020_u5_m
 
     Arguments:
@@ -61,7 +61,7 @@ def yolov4_pacsp_mish_s(pretrained=False, channels=3, classes=80):
     Returns:
         pytorch model
     """
-    return create('yolov4-pacsp-mish-s', pretrained, channels, classes)
+    return create('yolov4-pacsp-s-mish', pretrained, channels, classes)
 
 
 def yolov4_pacsp_mish(pretrained=False, channels=3, classes=80):
@@ -78,7 +78,7 @@ def yolov4_pacsp_mish(pretrained=False, channels=3, classes=80):
     return create('yolov4-pacsp-mish', pretrained, channels, classes)
 
 
-def yolov4_pacsp_mish_x(pretrained=False, channels=3, classes=80):
+def yolov4_pacsp_x_mish(pretrained=False, channels=3, classes=80):
     """YOLOv4-large model from https://github.com/AlexeyAB/PyTorch_YOLOv4/releases/tag/models_24_07_2020_u5_m
 
     Arguments:
@@ -89,10 +89,10 @@ def yolov4_pacsp_mish_x(pretrained=False, channels=3, classes=80):
     Returns:
         pytorch model
     """
-    return create('yolov4-pacsp-mish-x', pretrained, channels, classes)
+    return create('yolov4-pacsp-x-mish', pretrained, channels, classes)
 
 
-def yolov4_tiny(pretrained=False, channels=3, classes=80):
+def yolov4_tiny_mish(pretrained=False, channels=3, classes=80):
     """YOLOv4-tiny model from https://github.com/AlexeyAB/PyTorch_YOLOv4/releases/tag/models_24_07_2020_u5_m
 
     Arguments:
@@ -103,4 +103,4 @@ def yolov4_tiny(pretrained=False, channels=3, classes=80):
     Returns:
         pytorch model
     """
-    return create('yolov4-tiny', pretrained, channels, classes)
+    return create('yolov4-tiny-mish', pretrained, channels, classes)
