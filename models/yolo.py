@@ -71,7 +71,7 @@ class Model(nn.Module):
         torch_utils.model_info(self)
         print('')
 
-    def forward(self, x, augment=False, profile=False):
+    def forward(self, x, augment=False, profile=False, idx=None):
         if augment:
             img_size = x.shape[-2:]  # height, width
             s = [0.83, 0.67]  # scales
@@ -88,9 +88,9 @@ class Model(nn.Module):
             y[2][..., :4] /= s[1]  # scale
             return torch.cat(y, 1), None  # augmented inference, train
         else:
-            return self.forward_once(x, profile)  # single-scale inference, train
+            return self.forward_once(x, profile, idx)  # single-scale inference, train
 
-    def forward_once(self, x, profile=False): 
+    def forward_once(self, x, profile=False, idx=None):
         y, dt = [], []  # outputs
         z = []
         for m in self.model:
@@ -108,10 +108,12 @@ class Model(nn.Module):
 
             x = m(x)  # run
             y.append(x if m.i in self.save else None)  # save output
-            if m.i in [4, 6, 8, 10, 11, 24, 27]:
-                z.append(x)
-            
-        return z
+            if idx is not None:
+                if m.i in idx:
+                    z.append(x)
+                    
+        if idx is not None:    
+            return z
 
         if profile:
             print('%.1fms total' % sum(dt))
